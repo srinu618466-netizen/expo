@@ -2,6 +2,18 @@ import type { PromptObject } from 'prompts';
 
 import type { Platform } from './prompts';
 
+export const ALL_FEATURES = [
+  'Constant',
+  'Function',
+  'AsyncFunction',
+  'Event',
+  'View',
+  'ViewEvent',
+  'SharedObject',
+] as const;
+
+export type Feature = (typeof ALL_FEATURES)[number];
+
 /**
  * Possible command options.
  */
@@ -12,7 +24,6 @@ export type CommandOptions = {
   withChangelog: boolean;
   example: boolean;
   local: boolean;
-  // Module configuration options (skip prompts when provided)
   name?: string;
   description?: string;
   package?: string;
@@ -21,6 +32,8 @@ export type CommandOptions = {
   authorUrl?: string;
   repo?: string;
   platform?: Platform[];
+  features?: string[];
+  fullExample?: boolean;
 };
 
 /**
@@ -35,7 +48,9 @@ export type SubstitutionData = {
     package: string;
     moduleName: string;
     viewName: string;
+    sharedObjectName: string;
     platforms: Platform[];
+    features: string[];
   };
   author: string;
   license: string;
@@ -50,7 +65,9 @@ export type LocalSubstitutionData = {
     package: string;
     moduleName: string;
     viewName: string;
+    sharedObjectName: string;
     platforms: Platform[];
+    features: string[];
   };
   type: 'local';
 };
